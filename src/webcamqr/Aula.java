@@ -19,10 +19,11 @@ public class Aula extends javax.swing.JFrame {
      */
     
     public Aula() {
-        initComponents();
+        initComponents(); 
+        cargarAulas();
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
-        cargarAulas();
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**

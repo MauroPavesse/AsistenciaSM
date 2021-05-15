@@ -18,6 +18,7 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
     }
 
     /**
@@ -91,7 +92,7 @@ public class Inicio extends javax.swing.JFrame {
         
         WebCamQR vw = new WebCamQR();
         vw.show();
-        this.dispose();
+        //this.dispose();
         //this.setVisible(false);
 	//vw.setVisible(true);
         

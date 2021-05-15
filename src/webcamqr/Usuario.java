@@ -27,6 +27,9 @@ public class Usuario extends javax.swing.JFrame {
     public Usuario() {
         initComponents();
         cargarAsignaturas();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -306,6 +309,8 @@ public class Usuario extends javax.swing.JFrame {
                         
         }
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarAsignaturaA;

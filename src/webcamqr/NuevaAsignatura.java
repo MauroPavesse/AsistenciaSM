@@ -22,6 +22,9 @@ public class NuevaAsignatura extends javax.swing.JFrame {
     public NuevaAsignatura() {
         initComponents();
         cargarAulas();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**

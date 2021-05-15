@@ -22,9 +22,10 @@ public class Admin extends javax.swing.JFrame {
 
     public Admin() {
         initComponents();
+        tabla();
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
-        tabla();
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
    
     /**

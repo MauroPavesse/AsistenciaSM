@@ -25,6 +25,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -121,7 +122,7 @@ public class Login extends javax.swing.JFrame {
         ResultSet resultado;
         String consulta;
         
-        consulta = "SELECT clave FROM admin WHERE nombre='"+usuario.getText()+"'";
+            consulta = "SELECT clave FROM admins WHERE nombre='"+usuario.getText()+"'";
         
         try {
             

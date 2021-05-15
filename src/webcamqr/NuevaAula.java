@@ -19,6 +19,9 @@ public class NuevaAula extends javax.swing.JFrame {
      */
     public NuevaAula() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**

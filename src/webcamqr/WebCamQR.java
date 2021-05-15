@@ -53,9 +53,9 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
      */
     public WebCamQR() {
         initComponents();
-        //this.setLocation(100, 50);
         this.setResizable(false);
         this.setLocationRelativeTo(null); 
+        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
     /**
