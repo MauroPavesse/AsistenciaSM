@@ -68,10 +68,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Boton_Iniciar = new javax.swing.JButton();
+        btn_iniciar = new javax.swing.JButton();
         Texto_QR = new javax.swing.JTextField();
         codig_qr = new javax.swing.JLabel();
-        config = new javax.swing.JButton();
+        btn_config = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("QR - Webcam");
@@ -91,10 +91,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             .addGap(0, 344, Short.MAX_VALUE)
         );
 
-        Boton_Iniciar.setText("Iniciar");
-        Boton_Iniciar.addActionListener(new java.awt.event.ActionListener() {
+        btn_iniciar.setText("Iniciar");
+        btn_iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Boton_IniciarActionPerformed(evt);
+                btn_iniciarActionPerformed(evt);
             }
         });
 
@@ -102,10 +102,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
 
         codig_qr.setText("Codigo QR");
 
-        config.setText("Configuracion");
-        config.addActionListener(new java.awt.event.ActionListener() {
+        btn_config.setText("Configuracion");
+        btn_config.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                configActionPerformed(evt);
+                btn_configActionPerformed(evt);
             }
         });
 
@@ -114,22 +114,19 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(codig_qr)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
+                        .addGap(6, 6, 6)
+                        .addComponent(codig_qr)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Boton_Iniciar)
+                        .addComponent(btn_iniciar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(config)
-                        .addGap(24, 24, 24))))
+                        .addComponent(btn_config)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,15 +139,15 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                     .addComponent(codig_qr))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Boton_Iniciar)
-                    .addComponent(config))
+                    .addComponent(btn_iniciar)
+                    .addComponent(btn_config))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Boton_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_IniciarActionPerformed
+    private void btn_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarActionPerformed
         
         if (this.estado != false){
             
@@ -174,7 +171,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
         );    
 	executor.execute(this);
-        Boton_Iniciar.setEnabled(false);
+        btn_iniciar.setEnabled(false);
         
         }
         else
@@ -182,14 +179,14 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             JOptionPane.showMessageDialog(rootPane, "Debe configurar un aula para continuar!");
         }
         				
-    }//GEN-LAST:event_Boton_IniciarActionPerformed
+    }//GEN-LAST:event_btn_iniciarActionPerformed
 
-    private void configActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configActionPerformed
+    private void btn_configActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_configActionPerformed
         
         Aula va = new Aula();
         va.show();
         
-    }//GEN-LAST:event_configActionPerformed
+    }//GEN-LAST:event_btn_configActionPerformed
        /* @Override
         public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
@@ -234,10 +231,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Boton_Iniciar;
     private javax.swing.JTextField Texto_QR;
+    private javax.swing.JButton btn_config;
+    private javax.swing.JButton btn_iniciar;
     private javax.swing.JLabel codig_qr;
-    private javax.swing.JButton config;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

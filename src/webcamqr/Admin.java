@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package webcamqr;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +24,7 @@ public class Admin extends javax.swing.JFrame {
      */
 
     public Admin() {
+        
         initComponents();
         tabla();
         this.setResizable(false);
@@ -41,13 +45,15 @@ public class Admin extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_usuario = new javax.swing.JButton();
+        btn_aula = new javax.swing.JButton();
+        btn_asignatura = new javax.swing.JButton();
+        btn_cerrarsesion = new javax.swing.JButton();
+        btn_inasistencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        label_admin.setText("Hola ");
+        label_admin.setText("No data");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,86 +67,105 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel1.setText("Presentes");
 
-        jButton1.setText("Usuario");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_usuario.setText("Usuario");
+        btn_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_usuarioActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Aula");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_aula.setText("Aula");
+        btn_aula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_aulaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Asignatura");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_asignatura.setText("Asignatura");
+        btn_asignatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_asignaturaActionPerformed(evt);
             }
         });
+
+        btn_cerrarsesion.setText("Cerrar Sesion");
+        btn_cerrarsesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarsesionActionPerformed(evt);
+            }
+        });
+
+        btn_inasistencias.setText("Inasistencias");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_cerrarsesion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_usuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_asignatura)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton1)
-                        .addGap(47, 47, 47)
-                        .addComponent(jButton2)
-                        .addGap(45, 45, 45)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(btn_aula)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(142, 142, 142))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_admin)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_admin)
+                    .addComponent(btn_cerrarsesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(32, 32, 32)
+                    .addComponent(btn_usuario)
+                    .addComponent(btn_aula)
+                    .addComponent(btn_asignatura))
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addComponent(btn_inasistencias)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Usuario usu = new Usuario();
-        usu.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuarioActionPerformed
+        new Usuario().setVisible(true);
+    }//GEN-LAST:event_btn_usuarioActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        NuevaAula aula = new NuevaAula();
-        aula.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btn_aulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aulaActionPerformed
+        new NuevaAula().setVisible(true);
+    }//GEN-LAST:event_btn_aulaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        NuevaAsignatura asig = new NuevaAsignatura();
-        asig.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_asignaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_asignaturaActionPerformed
+        new NuevaAsignatura().setVisible(true);
+    }//GEN-LAST:event_btn_asignaturaActionPerformed
+
+    private void btn_cerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarsesionActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_cerrarsesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,9 +241,11 @@ public class Admin extends javax.swing.JFrame {
         label_admin.setText("Administrador: "+admin);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btn_asignatura;
+    private javax.swing.JButton btn_aula;
+    private javax.swing.JButton btn_cerrarsesion;
+    private javax.swing.JButton btn_inasistencias;
+    private javax.swing.JButton btn_usuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_admin;

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package webcamqr;
+
+import javax.swing.JFrame;
+
 /**
  *
  * @author Seba
@@ -82,20 +85,35 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private JFrame getFrame(){
+    return this;
+    }
+    
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
+        new Login(){
+            @Override
+            public void dispose(){
+                //Hacemos visible la principal
+                getFrame().setVisible(true);
+                //Cerramos vNueva
+                super.dispose();
+            }}.setVisible(true);
+            this.setVisible(false);
         
-        Login vl = new Login();
-        vl.show();
     }//GEN-LAST:event_adminActionPerformed
 
     private void qrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qrActionPerformed
         
-        WebCamQR vw = new WebCamQR();
-        vw.show();
-        //this.dispose();
-        //this.setVisible(false);
-	//vw.setVisible(true);
-        
+        new WebCamQR(){
+            @Override
+            public void dispose(){
+                //Hacemos visible la principal
+                getFrame().setVisible(true);
+                //Cerramos vNueva
+                super.dispose();
+            }}.setVisible(true);
+            this.setVisible(false);
+
     }//GEN-LAST:event_qrActionPerformed
 
     /**
