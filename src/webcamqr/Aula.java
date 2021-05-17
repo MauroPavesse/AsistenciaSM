@@ -1,31 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webcamqr;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author Seba
- */
+import webcamqr.WebCamQR;
+        
 public class Aula extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Aula
-     */
-    
     public Aula() {
         initComponents(); 
         cargarAulas();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); 
-        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+        this.setResizable(false); // Deshabilitar maximizacion del jframe
+        this.setLocationRelativeTo(null); // Centrar jframe    }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +27,7 @@ public class Aula extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btn_aceptar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         id_aula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,39 +51,36 @@ public class Aula extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_aceptar)
                             .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
+                        .addGap(69, 69, 69)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_aceptar)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void id_aulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_aulaActionPerformed
-        
-        
+
     }//GEN-LAST:event_id_aulaActionPerformed
 
     private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
-        
-        WebCamQR vw = new WebCamQR();
-        
+
         Statement sentencia;
         ResultSet resultado;
         String consulta;
@@ -106,12 +91,10 @@ public class Aula extends javax.swing.JFrame {
             
         sentencia = Conexion.obtener().createStatement();
         resultado = sentencia.executeQuery(consulta);
-       
-  
+      
         if (resultado.next()){
-            
-            vw.estado = true;
-            vw.id_aula = resultado.getInt(1);
+            WebCamQR.estado = true;
+            WebCamQR.id_aula = resultado.getInt(1);
             this.dispose();
         }
         
@@ -159,6 +142,7 @@ public class Aula extends javax.swing.JFrame {
         });
     }
     
+    // Metodo para cargar las aulas en el combo box
     public void cargarAulas(){
         
         Statement sentencia;
@@ -172,11 +156,8 @@ public class Aula extends javax.swing.JFrame {
         sentencia = Conexion.obtener().createStatement();
         resultado = sentencia.executeQuery(consulta);
        
-  
         while(resultado.next()){
-            
             id_aula.addItem(resultado.getString(2));
-
         }
         } catch (ClassNotFoundException | SQLException e) {
                             

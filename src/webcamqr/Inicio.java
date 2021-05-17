@@ -1,27 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webcamqr;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author Seba
- */
 public class Inicio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Inicio
-     */
-    
     public Inicio() {
         initComponents();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); 
-        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        this.setResizable(false); // Deshabilitar maximizacion del jframe
+        this.setLocationRelativeTo(null); // Centrar jframe
     }
 
     /**
@@ -62,20 +48,20 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(qr, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(admin)
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(admin)
                     .addComponent(qr))
@@ -85,6 +71,7 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Metodo para devolver el Jframe 
     private JFrame getFrame(){
     return this;
     }
@@ -99,7 +86,6 @@ public class Inicio extends javax.swing.JFrame {
                 super.dispose();
             }}.setVisible(true);
             this.setVisible(false);
-        
     }//GEN-LAST:event_adminActionPerformed
 
     private void qrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qrActionPerformed
@@ -113,7 +99,6 @@ public class Inicio extends javax.swing.JFrame {
                 super.dispose();
             }}.setVisible(true);
             this.setVisible(false);
-
     }//GEN-LAST:event_qrActionPerformed
 
     /**

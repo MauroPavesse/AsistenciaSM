@@ -1,36 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webcamqr;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/**
- *
- * @author Seba
- */
-public class Admin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Admin
-     */
+public class Admin extends javax.swing.JFrame {
 
     public Admin() {
         
         initComponents();
         tabla();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); 
-        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
-    }
+        this.setResizable(false); // Deshabilitar maximizacion del jframe
+        this.setLocationRelativeTo(null); // Centrar jframe
+       }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +36,7 @@ public class Admin extends javax.swing.JFrame {
         btn_cerrarsesion = new javax.swing.JButton();
         btn_inasistencias = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         label_admin.setText("No data");
 
@@ -101,31 +86,36 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_cerrarsesion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_usuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_asignatura)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_aula)
+                .addGap(178, 178, 178))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_aula)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_cerrarsesion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_usuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_asignatura)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(132, 132, 132))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +191,8 @@ public class Admin extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    // Metodo para llenar la tabla
     public void tabla (){
     
     DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -225,7 +216,7 @@ public class Admin extends javax.swing.JFrame {
 
        // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
        for (int i=0;i<3;i++)
-          fila[i] = resultado.getObject(i+1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+          fila[i] = resultado.getObject(i+1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
 
        // Se añade al modelo la fila completa.
        modelo.addRow(fila);
@@ -237,6 +228,8 @@ public class Admin extends javax.swing.JFrame {
                         
     }
     }
+    
+    // Metodo para obtener el nombre del administrador brindada por la ventana anterior
      public void nombreAdmin(String admin){
         label_admin.setText("Administrador: "+admin);
     }

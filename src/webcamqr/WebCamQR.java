@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package webcamqr;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
@@ -15,6 +11,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -33,29 +30,19 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Marto Nieto G
- */
 public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFactory{
-    
-    
+
 	private static final long serialVersionUID = 6441489157408381878L;
 	private Executor executor = Executors.newSingleThreadExecutor(this);
 	private Webcam webcam = null;
 	private WebcamPanel panel = null;
         public static Boolean estado = false;
         public static int id_aula;
-        //loadImage cargarImg = new loadImage();
-        //ImageIcon img = null;
-    /**
-     * Creates new form WebCamQRExample3
-     */
+
     public WebCamQR() {
         initComponents();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); 
-        this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+        this.setResizable(false); // Deshabilitar maximizacion del jframe
+        this.setLocationRelativeTo(null); // Centrar jframe
     }
 
     /**
@@ -72,8 +59,9 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         Texto_QR = new javax.swing.JTextField();
         codig_qr = new javax.swing.JLabel();
         btn_config = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("QR - Webcam");
         setIconImage(getIconImage());
         setResizable(false);
@@ -100,7 +88,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
 
         Texto_QR.setEnabled(false);
 
-        codig_qr.setText("Codigo QR");
+        codig_qr.setText("Mensaje");
 
         btn_config.setText("Configuracion");
         btn_config.addActionListener(new java.awt.event.ActionListener() {
@@ -109,29 +97,38 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             }
         });
 
+        jLabel1.setText("Acerca el QR a la camara");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(codig_qr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_iniciar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_config)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(codig_qr)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_iniciar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_config)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(154, 154, 154))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -149,30 +146,28 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
 
     private void btn_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarActionPerformed
         
-        if (this.estado != false){
+        if (this.estado != false){ // Condicional para saber si se ha configurado el aula, en ese caso se inicia la webcam 
             
-        Dimension size = WebcamResolution.QVGA.getSize();     
-        webcam = Webcam.getWebcams().get(0);
-	webcam.setViewSize(size);
-        
-        panel = new WebcamPanel(webcam);
-	panel.setPreferredSize(size);
-	panel.setFPSDisplayed(true);
-       
-        
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-        );    
-	executor.execute(this);
-        btn_iniciar.setEnabled(false);
-        
+            Dimension size = WebcamResolution.QVGA.getSize();     
+            webcam = Webcam.getWebcams().get(0);
+            webcam.setViewSize(size);
+
+            panel = new WebcamPanel(webcam);
+            panel.setPreferredSize(size);
+            panel.setFPSDisplayed(true);
+
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            );    
+            executor.execute(this);
+            btn_iniciar.setEnabled(false);
         }
         else
         {
@@ -182,20 +177,9 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
     }//GEN-LAST:event_btn_iniciarActionPerformed
 
     private void btn_configActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_configActionPerformed
-        
-        Aula va = new Aula();
-        va.show();
-        
+        new Aula().setVisible(true);
     }//GEN-LAST:event_btn_configActionPerformed
-       /* @Override
-        public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("resources/icon.png"));
-
-
-        return retValue;
-    }
-    */
+    
     /**
      * @param args the command line arguments
      */
@@ -235,142 +219,152 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
     private javax.swing.JButton btn_config;
     private javax.swing.JButton btn_iniciar;
     private javax.swing.JLabel codig_qr;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    @Override
+   @Override
    public void run() {
 		do {
                     try {
-                        Thread.sleep(2000);    
+                            Thread.sleep(2000);  // Retrasar lectura codigo QR por 2 segundos en cada iteracion 
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+                            e.printStackTrace();
 			}
+                    
 			Result result = null;
 			BufferedImage image = null;
+                        
 			if (webcam.isOpen()) {
+                            
                             if ((image = webcam.getImage()) == null) {
                                 continue;
                             }
+                            
                             LuminanceSource source = new BufferedImageLuminanceSource(image);
                             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                            
                             try {
                                 result = new MultiFormatReader().decode(bitmap);
                             } catch (NotFoundException e) {
-					// fall thru, it means there is no QR code in image
+				// fall thru, it means there is no QR code in image
                             }
 			}
-                        if (result != null) {
+                        if (result != null) { //Si se leyo un codigo QR
                       
-                            String dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
-                            String hora = dateTime.substring(dateTime.indexOf(" "));
-                            String dia = DateTimeFormatter.ofPattern("e").format(LocalDateTime.now());
+                            verificarPresente(result);
+                            
+			}
+                        else
+                        {
+                            Texto_QR.setText("Esperando..");
+                        }
 
-                            String apellido,consulta,id_asignatura_a, id_asignatura_p,id_usuario;                           
-                            Statement sentencia;
-                            ResultSet resultado;
-                            int resultado2;
-                            id_usuario = result.getText();
+		} while (true); // Bucle infinito
+	}
+   
+    public void verificarPresente(Result result){
+        
+        String dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()); // Obtener fecha y hora actual
+        String hora = dateTime.substring(dateTime.indexOf(" ")); // Obtener hora actual
+        String dia = DateTimeFormatter.ofPattern("e").format(LocalDateTime.now()); // Obtener dia actual en formato de numeros
+
+        String apellido,consulta,id_asignatura_a, id_asignatura_p,id_usuario;                           
+        Statement sentencia;
+        ResultSet resultado;
+        id_usuario = result.getText();
                             
-                        consulta = "SELECT apellido,id_asignatura_a,id_asignatura_p FROM usuarios WHERE id_usuario='"+id_usuario+"'";
-  
-                        try {
-                             
-                            sentencia = Conexion.obtener().createStatement();
+        consulta = "SELECT apellido,id_asignatura_a,id_asignatura_p FROM usuarios WHERE id_usuario='"+id_usuario+"'";
+
+        try {
+
+            sentencia = Conexion.obtener().createStatement();
+            resultado = sentencia.executeQuery(consulta);
+
+                if (resultado.next()){
+
+                    apellido = resultado.getString(1);
+                    id_asignatura_a = resultado.getString(2);
+                    id_asignatura_p = resultado.getString(3);
+
+                    if (id_asignatura_a != null || id_asignatura_p != null){
+
+                        consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_a+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
+                        resultado = sentencia.executeQuery(consulta);
+
+                        if (resultado.next()){ // Es un alumno
+                            id_asignatura_a = "'"+resultado.getString(1)+"'";
+                            id_asignatura_p = "null";
+
+                            consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_a) AND (asistencias.id_asignatura_a="+id_asignatura_a+") AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
                             resultado = sentencia.executeQuery(consulta);
-                            
+
                             if (resultado.next()){
-                       
-                            apellido = resultado.getString(1);
-                            id_asignatura_a = resultado.getString(2);
-                            id_asignatura_p = resultado.getString(3);
-                            
-                            if (id_asignatura_a != null || id_asignatura_p != null){
-                                
-                                consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_a+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
+                                Texto_QR.setText("Asistencia ya existente para el usuario "+apellido); 
+                            }
+                            else
+                            {
+                                consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
+                                sentencia.executeUpdate(consulta);
+                                Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
+                            }
+
+                        }
+                        else
+                        {
+                            consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_p+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
+                            resultado = sentencia.executeQuery(consulta);
+
+                            if (resultado.next()){ // Es un profesor
+                                id_asignatura_p = "'"+resultado.getString(1)+"'"; 
+                                id_asignatura_a = "null";
+
+                                consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_p) AND (asistencias.id_asignatura_p="+id_asignatura_p+") AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
                                 resultado = sentencia.executeQuery(consulta);
-                                if (resultado.next()){ 
-                                    id_asignatura_a = "'"+resultado.getString(1)+"'";
-                                    id_asignatura_p = "null";
-                                    
-                                    consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_a) AND (asistencias.id_asignatura_a="+id_asignatura_a+") AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
-                                    resultado = sentencia.executeQuery(consulta);
-                                    
-                                    if (resultado.next()){
-                                        Texto_QR.setText("Asistencia ya existente para el usuario "+apellido); 
-                                    }
-                                    else
-                                    {
-                                        consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
-                                        sentencia.executeUpdate(consulta);
-                                        Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
-                                    }
-                                    
+
+                                if (resultado.next()){                                       
+                                    Texto_QR.setText("Asistencia ya existente para el usuario "+apellido);
                                 }
                                 else
                                 {
-                                    consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_p+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
-                                    resultado = sentencia.executeQuery(consulta);
-                                    if (resultado.next()){ 
-                                        id_asignatura_p = "'"+resultado.getString(1)+"'"; 
-                                        id_asignatura_a = "null";
-                                        
-                                        consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_p) AND (asistencias.id_asignatura_p="+id_asignatura_p+") AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
-                                        resultado = sentencia.executeQuery(consulta);
-                                        
-                                        if (resultado.next()){                                       
-                                        Texto_QR.setText("Asistencia ya existente para el usuario "+apellido);
-                                        }
-                                        else
-                                        {
-                                            consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
-                                            sentencia.executeUpdate(consulta);
-                                            Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
-                                        }
-                                        
-                                    }
-                                    else
-                                    {
-                                        Texto_QR.setText("No se encontro una materia en este horario para el usuario "+apellido); 
-                                    }
+                                    consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
+                                    sentencia.executeUpdate(consulta);
+                                    Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
                                 }
-                                    
-                            }
-                            else
-                            {   
-                                consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
-                                sentencia.executeUpdate(consulta);
-                                Texto_QR.setText("Asistencia cargada para el usuario "+apellido);
-                            }
 
                             }
                             else
                             {
-                                Texto_QR.setText("Usuario no encontrado");
+                                Texto_QR.setText("No se encontro una materia en este horario para el usuario "+apellido); 
                             }
-   
-                         
-                        } catch (ClassNotFoundException | SQLException e) {
-                            
-                        e.printStackTrace();
-                        
                         }
 
-                            //img = new ImageIcon("imgQR/"+result.getText()+".png");
-                            //cargarImg.loadImageQR(img);
-                            //cargarImg.show();
-			}else{
-                            Texto_QR.setText("Esperando..");
-                            //cargarImg.setVisible(false);
-                        }
+                    }
+                    else // Es un personal
+                    {   
+                        consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
+                        sentencia.executeUpdate(consulta);
+                        Texto_QR.setText("Asistencia cargada para el usuario "+apellido);
+                    }
 
-		} while (true);
-	}
+                }
+                else
+                {
+                    Texto_QR.setText("Usuario no encontrado");
+                }
+
+
+            } catch (ClassNotFoundException | SQLException e) {
+
+                e.printStackTrace();
+
+            }
+    }
 
     @Override
-   public Thread newThread(Runnable r) {
-		Thread t = new Thread(r, "example-runner");
-		t.setDaemon(true);
-		return t;
-	}  
+    public Thread newThread(Runnable r) {
+	Thread t = new Thread(r, "example-runner");
+	t.setDaemon(true);
+	return t;
+    }  
 }
