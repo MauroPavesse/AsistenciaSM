@@ -45,12 +45,12 @@ public class Admin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Usuario", "Asignatura", "Fecha"
+                "Usuario", "Asignatura", "Hora"
             }
         ));
         jScrollPane2.setViewportView(tabla);
 
-        jLabel1.setText("Presentes");
+        jLabel1.setText("Presentes de hoy");
 
         btn_usuario.setText("Usuario");
         btn_usuario.addActionListener(new java.awt.event.ActionListener() {
@@ -81,41 +81,43 @@ public class Admin extends javax.swing.JFrame {
         });
 
         btn_inasistencias.setText("Inasistencias");
+        btn_inasistencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_inasistenciasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_aula)
-                .addGap(178, 178, 178))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_cerrarsesion))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_usuario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_asignatura)))
-                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_cerrarsesion))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_usuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_asignatura))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(132, 132, 132))))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_aula)
+                        .addGap(178, 178, 178))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +158,10 @@ public class Admin extends javax.swing.JFrame {
     private void btn_cerrarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarsesionActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_cerrarsesionActionPerformed
+
+    private void btn_inasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inasistenciasActionPerformed
+        new Inasistencias().setVisible(true);
+    }//GEN-LAST:event_btn_inasistenciasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,8 +206,15 @@ public class Admin extends javax.swing.JFrame {
     Statement sentencia;
     ResultSet resultado;
     String consulta;
-        
-    consulta = "SELECT usuarios.nombre,asignaturas.nombre,asistencias.fecha FROM asistencias,usuarios,asignaturas WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asignaturas.id_asignatura=asistencias.id_asignatura_a)) ORDER BY asistencias.id_asistencia ASC";
+    // Se crea un array que será una de las filas de la tabla.
+    Object [] fila = new Object[3]; // Hay tres columnas en la tabla
+    
+    fila[0] = "";
+    fila[1] = "Alumnos";
+    fila[2] = "";
+    modelo.addRow(fila);
+    
+    consulta = "SELECT usuarios.nombre,asignaturas.nombre,TIME(asistencias.fecha) as 'time'  FROM asistencias,usuarios,asignaturas WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asignaturas.id_asignatura=asistencias.id_asignatura_a) AND (DATE(asistencias.fecha)=CURDATE())) ORDER BY time DESC";
         
     try {
             
@@ -211,13 +224,50 @@ public class Admin extends javax.swing.JFrame {
     // Bucle para cada resultado en la consulta
     while (resultado.next())
     {
-       // Se crea un array que será una de las filas de la tabla.
-       Object [] fila = new Object[3]; // Hay tres columnas en la tabla
+       // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+       for (int i=0;i<3;i++)
+          fila[i] = resultado.getObject(i+1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
+
+       // Se añade al modelo la fila completa.
+       modelo.addRow(fila);
+
+    }
+    
+    fila[0] = "";
+    fila[1] = "Profesores";
+    fila[2] = "";
+    modelo.addRow(fila);
+    
+    consulta = "SELECT usuarios.nombre,asignaturas.nombre,TIME(asistencias.fecha) as 'time' FROM asistencias,usuarios,asignaturas WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asignaturas.id_asignatura=asistencias.id_asignatura_p) AND (DATE(asistencias.fecha)=CURDATE())) ORDER BY time DESC";
+    resultado = sentencia.executeQuery(consulta);
+    
+     // Bucle para cada resultado en la consulta
+    while (resultado.next())
+    {
 
        // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
        for (int i=0;i<3;i++)
           fila[i] = resultado.getObject(i+1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
 
+       // Se añade al modelo la fila completa.
+       modelo.addRow(fila);
+
+    }
+    
+    fila[0] = "";
+    fila[1] = "Personal";
+    fila[2] = "";
+    modelo.addRow(fila);
+    
+    consulta = "SELECT usuarios.nombre,TIME(asistencias.fecha) as 'time' FROM asistencias,usuarios WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a IS NULL) AND (asistencias.id_asignatura_p IS NULL) AND (DATE(asistencias.fecha)=CURDATE())) ORDER BY time DESC";
+    resultado = sentencia.executeQuery(consulta);
+
+     // Bucle para cada resultado en la consulta
+    while (resultado.next())
+    {
+       fila[0] = resultado.getObject(1);
+       fila[1] = "-";
+       fila[2] = resultado.getObject(2);
        // Se añade al modelo la fila completa.
        modelo.addRow(fila);
 
