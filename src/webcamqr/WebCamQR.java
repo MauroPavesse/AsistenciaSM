@@ -296,7 +296,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                             id_asignatura_a = "'"+resultado.getString(1)+"'";
                             id_asignatura_p = "null";
 
-                            consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_a) AND (asistencias.id_asignatura_a="+id_asignatura_a+") AND (DATE(asistencias.fecha)=CURDATE())AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
+                            consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_a) AND (asistencias.id_asignatura_a="+id_asignatura_a+") AND (asistencias.id_usuario='"+id_usuario+"') AND (DATE(asistencias.fecha)=CURDATE())AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
                             resultado = sentencia.executeQuery(consulta);
 
                             if (resultado.next()){
@@ -319,7 +319,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                                 id_asignatura_p = "'"+resultado.getString(1)+"'"; 
                                 id_asignatura_a = "null";
 
-                                consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_p) AND (asistencias.id_asignatura_p="+id_asignatura_p+") AND (DATE(asistencias.fecha)=CURDATE()) AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
+                                consulta = "SELECT asistencias.id_asistencia FROM asistencias,asignaturas WHERE ((asignaturas.id_asignatura=asistencias.id_asignatura_p) AND (asistencias.id_asignatura_p="+id_asignatura_p+") AND (asistencias.id_usuario='"+id_usuario+"') AND (DATE(asistencias.fecha)=CURDATE()) AND (DATE_FORMAT(asistencias.fecha,'%H:%i') BETWEEN asignaturas.hora_inicio AND asignaturas.hora_fin))";
                                 resultado = sentencia.executeQuery(consulta);
 
                                 if (resultado.next()){                                       

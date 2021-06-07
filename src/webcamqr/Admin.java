@@ -210,7 +210,7 @@ public class Admin extends javax.swing.JFrame {
     Object [] fila = new Object[3]; // Hay tres columnas en la tabla
     
     fila[0] = "";
-    fila[1] = "Alumnos";
+    fila[1] = "ALUMNOS";
     fila[2] = "";
     modelo.addRow(fila);
     
@@ -234,7 +234,7 @@ public class Admin extends javax.swing.JFrame {
     }
     
     fila[0] = "";
-    fila[1] = "Profesores";
+    fila[1] = "PROFESORES";
     fila[2] = "";
     modelo.addRow(fila);
     
@@ -255,7 +255,7 @@ public class Admin extends javax.swing.JFrame {
     }
     
     fila[0] = "";
-    fila[1] = "Personal";
+    fila[1] = "PERSONAL";
     fila[2] = "";
     modelo.addRow(fila);
     

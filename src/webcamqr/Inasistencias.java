@@ -169,8 +169,7 @@ public class Inasistencias extends javax.swing.JFrame {
 
     private void fechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechasActionPerformed
 
-                tabla(fechas.getSelectedItem()); 
-                
+            tabla(fechas.getSelectedItem());       
     }//GEN-LAST:event_fechasActionPerformed
 
     /**
@@ -210,16 +209,14 @@ public class Inasistencias extends javax.swing.JFrame {
     
     // Metodo para llenar la tabla
     public void tabla (Object fecha){
-    
-    //String dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()); // Obtener fecha y hora actual
-    //String hora = dateTime.substring(dateTime.indexOf(" ")); // Obtener hora actual
-    //String dia = DateTimeFormatter.ofPattern("e").format(LocalDateTime.now()); // Obtener dia actual en formato de numeros
-
+        
     DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
     DefaultTableModel modelo2 = (DefaultTableModel) tabla_ina.getModel();
     
     modelo.setRowCount(0);
     modelo2.setRowCount(0);
+    
+    if (fecha != null){
     
     Statement sentencia;
     ResultSet resultado;
@@ -245,7 +242,7 @@ public class Inasistencias extends javax.swing.JFrame {
 
         }
         
-        consulta = "SELECT usuarios.apellido FROM usuarios WHERE NOT EXISTS (SELECT * FROM asistencias WHERE (usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+id_asignatura+")) AND FIND_IN_SET("+id_asignatura+",usuarios.id_asignatura_a)";
+        consulta = "SELECT usuarios.apellido FROM usuarios WHERE NOT EXISTS (SELECT * FROM asistencias WHERE (usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+id_asignatura+") AND (DATE(asistencias.fecha)='"+fecha+"')) AND FIND_IN_SET("+id_asignatura+",usuarios.id_asignatura_a)";
         resultado = sentencia.executeQuery(consulta);
         
         // Bucle para cada resultado en la consulta
@@ -263,6 +260,7 @@ public class Inasistencias extends javax.swing.JFrame {
                             
         e.printStackTrace();
                         
+    }
     }
     }
     
@@ -296,7 +294,7 @@ public class Inasistencias extends javax.swing.JFrame {
         
         fechas.removeAllItems();
         
-        consulta = "SELECT DATE_FORMAT(fecha,'%Y-%m-%d') AS 'date' FROM asistencias WHERE id_asignatura_a='"+id_asignatura+"' ORDER BY fecha DESC";
+        consulta = "SELECT DATE_FORMAT(fecha,'%Y-%m-%d') AS 'date' FROM asistencias WHERE id_asignatura_a='"+id_asignatura+"' GROUP BY date ORDER BY fecha DESC";
         
         try {
             
