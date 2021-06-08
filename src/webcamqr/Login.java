@@ -136,6 +136,7 @@ public class Login extends javax.swing.JFrame {
                         getFrame().setVisible(true);
                         //Cerramos vNueva
                         super.dispose();
+                        hilo.stop();
                     }};
                 va.setVisible(true);
                 va.nombreAdmin(usuario.getText());

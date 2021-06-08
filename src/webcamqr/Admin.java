@@ -7,12 +7,12 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Admin extends javax.swing.JFrame {
-
+public class Admin extends javax.swing.JFrame implements Runnable{
+    Thread hilo = new Thread(this);
     public Admin() {
         
         initComponents();
-        tabla();
+        hilo.start();
         this.setResizable(false); // Deshabilitar maximizacion del jframe
         this.setLocationRelativeTo(null); // Centrar jframe
        }
@@ -191,18 +191,19 @@ public class Admin extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(()-> {
+
                 new Admin().setVisible(true);
-            }
+
         });
     }
     
     // Metodo para llenar la tabla
     public void tabla (){
-    
+
     DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-   
+    modelo.setRowCount(0);
+    
     Statement sentencia;
     ResultSet resultado;
     String consulta;
@@ -294,4 +295,19 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JLabel label_admin;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+     public void run() {
+
+         while(true){
+
+             try {
+                  hilo.sleep(5000);  // Retrasar lectura codigo QR por 2 segundos en cada iteracion 
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+             tabla();
+         }
+  }
 }
