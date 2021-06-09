@@ -40,7 +40,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="1" min="-2" pref="366" max="-2" attributes="0"/>
+                          <Component id="Scroll_tabla" alignment="1" min="-2" pref="366" max="-2" attributes="0"/>
                           <Component id="btn_inasistencias" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -51,7 +51,7 @@
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="101" max="-2" attributes="0"/>
+                      <Component id="label_tabla" min="-2" pref="101" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -77,9 +77,9 @@
                   <Component id="btn_asignatura" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="label_tabla" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="234" max="-2" attributes="0"/>
+              <Component id="Scroll_tabla" min="-2" pref="234" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="btn_inasistencias" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -93,7 +93,7 @@
         <Property name="text" type="java.lang.String" value="No data"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+    <Container class="javax.swing.JScrollPane" name="Scroll_tabla">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -135,7 +135,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="label_tabla">
       <Properties>
         <Property name="text" type="java.lang.String" value="Presentes de hoy"/>
       </Properties>
