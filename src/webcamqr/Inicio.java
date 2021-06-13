@@ -21,6 +21,7 @@ public class Inicio extends javax.swing.JFrame {
         label_bienvenida = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
 
         qr.setText("Webcam QR");
         qr.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +98,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void qrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qrActionPerformed
         
-        new WebCamQR(){
+        new LectorQR(){
             
             @Override
             public void dispose(){
@@ -106,6 +107,7 @@ public class Inicio extends javax.swing.JFrame {
                 getFrame().setVisible(true);
                 //Cerramos vNueva
                 super.dispose();
+                close(); // Detener el hilo
                 
             }
             

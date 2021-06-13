@@ -3,16 +3,14 @@ package webcamqr;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import javax.swing.JTable;
+
 import javax.swing.table.DefaultTableModel;
 
-public class Inasistencias extends javax.swing.JFrame {
+public class Asistencias extends javax.swing.JFrame {
     
-    int id_asignatura = 0;
+    private int id_asignatura = 0;
     
-    public Inasistencias() {
+    public Asistencias() {
         
         initComponents();
         cargarAsignaturas();
@@ -27,7 +25,6 @@ public class Inasistencias extends javax.swing.JFrame {
 
         ScrollInasistencias = new javax.swing.JScrollPane();
         tabla_ina = new javax.swing.JTable();
-        label_inasistencias = new javax.swing.JLabel();
         asignaturas = new javax.swing.JComboBox<>();
         hora = new javax.swing.JLabel();
         fechas = new javax.swing.JComboBox<>();
@@ -37,6 +34,7 @@ public class Inasistencias extends javax.swing.JFrame {
         label_tablaInasistencias = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Asistencias");
 
         tabla_ina.setBackground(java.awt.Color.orange);
         tabla_ina.setModel(new javax.swing.table.DefaultTableModel(
@@ -49,15 +47,13 @@ public class Inasistencias extends javax.swing.JFrame {
         ));
         ScrollInasistencias.setViewportView(tabla_ina);
 
-        label_inasistencias.setText("Inasistencias");
-
         asignaturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 asignaturasActionPerformed(evt);
             }
         });
 
-        hora.setText("Hora");
+        hora.setText("Hora de asignatura:");
 
         fechas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,29 +79,27 @@ public class Inasistencias extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(hora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 26, Short.MAX_VALUE)
-                        .addComponent(asignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(fechas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(asignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_inasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(label_tablaInasistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                .addComponent(label_tablaAsistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(149, 149, 149))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ScrollInasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(fechas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(label_tablaInasistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                                    .addComponent(label_tablaAsistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(152, 152, 152))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ScrollInasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -116,16 +110,14 @@ public class Inasistencias extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_inasistencias)
-                    .addComponent(hora))
+                .addComponent(hora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(asignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_tablaAsistencias)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(label_tablaInasistencias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScrollInasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,7 +149,7 @@ public class Inasistencias extends javax.swing.JFrame {
                 
                 id_asignatura = resultado.getInt(1);
                 cargarFechas();
-                hora.setText("Hora: "+resultado.getString(2)+"-"+resultado.getString(3));
+                hora.setText("Hora de asignatura: "+resultado.getString(2)+" - "+resultado.getString(3));
                 
             }
             
@@ -181,7 +173,7 @@ public class Inasistencias extends javax.swing.JFrame {
             
             public void run() {
                 
-                new Inasistencias().setVisible(true);
+                new Asistencias().setVisible(true);
                 
             }
         });
@@ -194,8 +186,8 @@ public class Inasistencias extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         DefaultTableModel modelo2 = (DefaultTableModel) tabla_ina.getModel();
 
-        modelo.setRowCount(0);
-        modelo2.setRowCount(0);
+        modelo.setRowCount(0); // Limpiar tabla asistencias
+        modelo2.setRowCount(0); // Limpiar tabla inasistencias
 
         if (fecha != null){
 
@@ -287,7 +279,7 @@ public class Inasistencias extends javax.swing.JFrame {
         ResultSet resultado;
         String consulta;
         
-        fechas.removeAllItems();
+        fechas.removeAllItems(); // Limpiar combobox de fechas
         
         consulta = "SELECT DATE_FORMAT(fecha,'%Y-%m-%d') AS 'date' FROM asistencias WHERE id_asignatura_a='"+id_asignatura+"' GROUP BY date ORDER BY fecha DESC";
         
@@ -314,7 +306,6 @@ public class Inasistencias extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> asignaturas;
     private javax.swing.JComboBox<String> fechas;
     private javax.swing.JLabel hora;
-    private javax.swing.JLabel label_inasistencias;
     private javax.swing.JLabel label_tablaAsistencias;
     private javax.swing.JLabel label_tablaInasistencias;
     private javax.swing.JTable tabla;

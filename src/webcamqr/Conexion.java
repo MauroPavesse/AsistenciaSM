@@ -15,7 +15,7 @@ public class Conexion {
             try {
                 
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_presentes", "root", "sebjjk02"); // Datos de sesion para conectarnos a MYSQL
+                cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema_presentes", "root", ""); // Datos de sesion para conectarnos a MYSQL
                 System.out.println("CONEXION EXITOSA");
                 
             } catch (SQLException ex) {

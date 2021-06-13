@@ -1,20 +1,18 @@
 package webcamqr;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
-public class Usuario extends javax.swing.JFrame {
+public class NuevoUsuario extends javax.swing.JFrame {
     
-    String asignaturasA = "";
-    String asignaturasP = "";
+    private String asignaturasA = "";
+    private String asignaturasP = "";
 
-    public Usuario() {
+    public NuevoUsuario() {
         
         initComponents();
         cargarAsignaturas();
@@ -43,6 +41,7 @@ public class Usuario extends javax.swing.JFrame {
         label_nuevo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nuevo usuario");
 
         label_nombre.setText("Nombre:");
 
@@ -130,7 +129,7 @@ public class Usuario extends javax.swing.JFrame {
                         .addGap(82, 82, 82))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(label_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                        .addGap(114, 114, 114))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +240,7 @@ public class Usuario extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                new Usuario().setVisible(true);
+                new NuevoUsuario().setVisible(true);
                 
             }
         });

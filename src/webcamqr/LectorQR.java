@@ -11,30 +11,25 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import javax.swing.ImageIcon;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
-public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFactory{
+public class LectorQR extends javax.swing.JFrame implements Runnable{
 
-	private static final long serialVersionUID = 6441489157408381878L;
-	private Executor executor = Executors.newSingleThreadExecutor(this);
+        public static Boolean estado = false;
+        public static int id_aula = 0;
+	private Thread hilo = new Thread(this);
 	private Webcam webcam = null;
 	private WebcamPanel panel = null;
-        public static Boolean estado = false;
-        public static int id_aula;
 
-    public WebCamQR() {
+    public LectorQR() {
         
         initComponents();
         this.setResizable(false); // Deshabilitar maximizacion del jframe
@@ -54,7 +49,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         label_cabecera = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("QR - Webcam");
+        setTitle("Lector QR");
         setIconImage(getIconImage());
         setResizable(false);
 
@@ -64,7 +59,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         panelQR.setLayout(panelQRLayout);
         panelQRLayout.setHorizontalGroup(
             panelQRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelQRLayout.setVerticalGroup(
             panelQRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,25 +90,28 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelQR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(codig_qr)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_iniciar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_config)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelQR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(label_cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(codig_qr)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btn_iniciar)
+                                    .addGap(316, 316, 316)
+                                    .addComponent(btn_config)))
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(label_cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(154, 154, 154)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,9 +145,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             panel = new WebcamPanel(webcam);
             panel.setPreferredSize(size);
             panel.setFPSDisplayed(true);
-
+            
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(panelQR);
             panelQR.setLayout(jPanel1Layout);
+            
             jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
@@ -158,7 +157,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
             );    
-            executor.execute(this);
+            hilo.start();
             btn_iniciar.setEnabled(false);
         }
         else{
@@ -179,7 +178,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
 
         java.awt.EventQueue.invokeLater(() -> {
             
-            new WebCamQR().setVisible(true);
+            new LectorQR().setVisible(true);
             
         });
         
@@ -201,7 +200,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
             
             try {
                 
-                Thread.sleep(2000);  // Retrasar lectura codigo QR por 2 segundos en cada iteracion 
+                hilo.sleep(2000);  // Retrasar lectura codigo QR por 2 segundos en cada iteracion 
                 
             } catch (InterruptedException e) {
                             
@@ -237,7 +236,7 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                         
             if (result != null) { //Si se leyo un codigo QR
                                 
-                verificarPresente(result);     
+                verificarPresente(result);    
 			
             }
             else{
@@ -347,7 +346,8 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                         Texto_QR.setText("Asistencia ya existente para el usuario "+apellido);
                             
                     }
-                    else{
+                    else
+                    {
                             
                         consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
                         sentencia.executeUpdate(consulta);
@@ -358,7 +358,8 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
                 }
 
             }
-            else{
+            else
+            {
                     
                 Texto_QR.setText("Usuario no encontrado");
                     
@@ -371,14 +372,10 @@ public class WebCamQR extends javax.swing.JFrame implements Runnable, ThreadFact
         }
 
     }
-
-    @Override
-    public Thread newThread(Runnable r) {
-        
-	Thread t = new Thread(r, "example-runner");
-	t.setDaemon(true);
-	return t;
-        
+    
+    public void close(){
+        webcam.close();
+        hilo.stop();
     }
     
 }

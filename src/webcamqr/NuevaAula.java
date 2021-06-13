@@ -22,6 +22,7 @@ public class NuevaAula extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nueva aula");
 
         label_nombre.setText("Nombre del aula:");
 

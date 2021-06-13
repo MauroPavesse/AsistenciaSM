@@ -1,14 +1,14 @@
 package webcamqr;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Admin extends javax.swing.JFrame implements Runnable{
     
-    Thread hilo = new Thread(this);
+    private Thread hilo = new Thread(this);
     
     public Admin() {
         
@@ -30,9 +30,10 @@ public class Admin extends javax.swing.JFrame implements Runnable{
         btn_aula = new javax.swing.JButton();
         btn_asignatura = new javax.swing.JButton();
         btn_cerrarsesion = new javax.swing.JButton();
-        btn_inasistencias = new javax.swing.JButton();
+        btn_asistencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Admin");
 
         label_admin.setText("No data");
 
@@ -76,10 +77,10 @@ public class Admin extends javax.swing.JFrame implements Runnable{
             }
         });
 
-        btn_inasistencias.setText("Inasistencias");
-        btn_inasistencias.addActionListener(new java.awt.event.ActionListener() {
+        btn_asistencias.setText("Asistencias");
+        btn_asistencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_inasistenciasActionPerformed(evt);
+                btn_asistenciasActionPerformed(evt);
             }
         });
 
@@ -103,7 +104,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Scroll_tabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_inasistencias, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btn_asistencias, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -132,7 +133,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                 .addGap(18, 18, 18)
                 .addComponent(Scroll_tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
-                .addComponent(btn_inasistencias)
+                .addComponent(btn_asistencias)
                 .addContainerGap())
         );
 
@@ -140,7 +141,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuarioActionPerformed
-        new Usuario().setVisible(true);
+        new NuevoUsuario().setVisible(true);
     }//GEN-LAST:event_btn_usuarioActionPerformed
 
     private void btn_aulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aulaActionPerformed
@@ -155,9 +156,9 @@ public class Admin extends javax.swing.JFrame implements Runnable{
         this.dispose();
     }//GEN-LAST:event_btn_cerrarsesionActionPerformed
 
-    private void btn_inasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inasistenciasActionPerformed
-        new Inasistencias().setVisible(true);
-    }//GEN-LAST:event_btn_inasistenciasActionPerformed
+    private void btn_asistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_asistenciasActionPerformed
+        new Asistencias().setVisible(true);
+    }//GEN-LAST:event_btn_asistenciasActionPerformed
 
     public static void main(String args[]) {
 
@@ -172,7 +173,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
     public void tabla (){
 
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpiar tabla
 
         Statement sentencia;
         ResultSet resultado;
@@ -259,12 +260,16 @@ public class Admin extends javax.swing.JFrame implements Runnable{
         
     }
     
+    public void stopThread(){
+        hilo.stop();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane Scroll_tabla;
     private javax.swing.JButton btn_asignatura;
+    private javax.swing.JButton btn_asistencias;
     private javax.swing.JButton btn_aula;
     private javax.swing.JButton btn_cerrarsesion;
-    private javax.swing.JButton btn_inasistencias;
     private javax.swing.JButton btn_usuario;
     private javax.swing.JLabel label_admin;
     private javax.swing.JLabel label_tabla;
@@ -278,7 +283,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
 
             try {
                  
-                hilo.sleep(5000);  // Retrasar lectura codigo QR por 2 segundos en cada iteracion
+                hilo.sleep(5000);  // Retrasar lectura codigo QR por 5 segundos en cada iteracion
                 
             } catch (InterruptedException e) {
                 

@@ -3,7 +3,6 @@ package webcamqr;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import webcamqr.WebCamQR;
         
 public class Aula extends javax.swing.JFrame {
 
@@ -25,6 +24,7 @@ public class Aula extends javax.swing.JFrame {
         btn_aceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aulas");
 
         id_aula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,15 +46,12 @@ public class Aula extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_aceptar)
-                            .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(label_aulas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btn_aceptar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(label_aulas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,8 +88,8 @@ public class Aula extends javax.swing.JFrame {
 
             if (resultado.next()){
                 
-                WebCamQR.estado = true;
-                WebCamQR.id_aula = resultado.getInt(1);
+                LectorQR.estado = true;
+                LectorQR.id_aula = resultado.getInt(1);
                 this.dispose();
                 
             }
