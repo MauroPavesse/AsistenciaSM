@@ -22,7 +22,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label_admin = new javax.swing.JLabel();
+        labelAdmin = new javax.swing.JLabel();
         Scroll_tabla = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         label_tabla = new javax.swing.JLabel();
@@ -35,7 +35,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Admin");
 
-        label_admin.setText("No data");
+        labelAdmin.setText("No data");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,7 +93,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(label_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_cerrarsesion))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -121,7 +121,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_admin)
+                    .addComponent(labelAdmin)
                     .addComponent(btn_cerrarsesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -256,7 +256,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
     // Metodo para obtener el nombre del administrador brindada por la ventana anterior
     public void nombreAdmin(String admin){
         
-        label_admin.setText("Administrador: "+admin);
+        labelAdmin.setText("Administrador: "+admin);
         
     }
     
@@ -271,7 +271,7 @@ public class Admin extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton btn_aula;
     private javax.swing.JButton btn_cerrarsesion;
     private javax.swing.JButton btn_usuario;
-    private javax.swing.JLabel label_admin;
+    private javax.swing.JLabel labelAdmin;
     private javax.swing.JLabel label_tabla;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables

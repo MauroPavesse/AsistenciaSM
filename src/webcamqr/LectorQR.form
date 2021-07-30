@@ -42,12 +42,12 @@
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="codig_qr" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Texto_QR" min="-2" pref="419" max="-2" attributes="0"/>
+                                  <Component id="textoQR" min="-2" pref="419" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btn_iniciar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnIniciar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="316" max="-2" attributes="0"/>
-                                  <Component id="btn_config" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnConfig" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -70,13 +70,13 @@
               <Component id="panelQR" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Texto_QR" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textoQR" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="codig_qr" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_iniciar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_config" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnIniciar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConfig" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -106,15 +106,15 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JButton" name="btn_iniciar">
+    <Component class="javax.swing.JButton" name="btnIniciar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Iniciar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_iniciarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="Texto_QR">
+    <Component class="javax.swing.JTextField" name="textoQR">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -124,12 +124,12 @@
         <Property name="text" type="java.lang.String" value="Mensaje"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btn_config">
+    <Component class="javax.swing.JButton" name="btnConfig">
       <Properties>
         <Property name="text" type="java.lang.String" value="Configuracion"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_configActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfigActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_cabecera">

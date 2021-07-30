@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Asistencias extends javax.swing.JFrame {
     
-    private int id_asignatura = 0;
+    private int idAsignatura = 0;
     
     public Asistencias() {
         
@@ -24,10 +24,10 @@ public class Asistencias extends javax.swing.JFrame {
     private void initComponents() {
 
         ScrollInasistencias = new javax.swing.JScrollPane();
-        tabla_ina = new javax.swing.JTable();
-        asignaturas = new javax.swing.JComboBox<>();
+        tablaIna = new javax.swing.JTable();
+        selectAsignaturas = new javax.swing.JComboBox<>();
         hora = new javax.swing.JLabel();
-        fechas = new javax.swing.JComboBox<>();
+        selectFechas = new javax.swing.JComboBox<>();
         ScrollAsistencias = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         label_tablaAsistencias = new javax.swing.JLabel();
@@ -36,8 +36,8 @@ public class Asistencias extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Asistencias");
 
-        tabla_ina.setBackground(java.awt.Color.orange);
-        tabla_ina.setModel(new javax.swing.table.DefaultTableModel(
+        tablaIna.setBackground(java.awt.Color.orange);
+        tablaIna.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -45,19 +45,19 @@ public class Asistencias extends javax.swing.JFrame {
                 "Usuario"
             }
         ));
-        ScrollInasistencias.setViewportView(tabla_ina);
+        ScrollInasistencias.setViewportView(tablaIna);
 
-        asignaturas.addActionListener(new java.awt.event.ActionListener() {
+        selectAsignaturas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                asignaturasActionPerformed(evt);
+                selectAsignaturasActionPerformed(evt);
             }
         });
 
         hora.setText("Hora de asignatura:");
 
-        fechas.addActionListener(new java.awt.event.ActionListener() {
+        selectFechas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechasActionPerformed(evt);
+                selectFechasActionPerformed(evt);
             }
         });
 
@@ -83,11 +83,11 @@ public class Asistencias extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(asignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selectAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(fechas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(selectFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -113,8 +113,8 @@ public class Asistencias extends javax.swing.JFrame {
                 .addComponent(hora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(asignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_tablaAsistencias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
@@ -132,13 +132,13 @@ public class Asistencias extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void asignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignaturasActionPerformed
+    private void selectAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAsignaturasActionPerformed
         
         Statement sentencia;
         ResultSet resultado;
         String consulta;
         
-        consulta = "SELECT id_asignatura,hora_inicio,hora_fin FROM asignaturas WHERE nombre='"+asignaturas.getSelectedItem()+"'";
+        consulta = "SELECT id_asignatura,hora_inicio,hora_fin FROM asignaturas WHERE nombre='"+selectAsignaturas.getSelectedItem()+"'";
         
         try {
             
@@ -147,7 +147,7 @@ public class Asistencias extends javax.swing.JFrame {
       
             if (resultado.next()){
                 
-                id_asignatura = resultado.getInt(1);
+                idAsignatura = resultado.getInt(1);
                 cargarFechas();
                 hora.setText("Hora de asignatura: "+resultado.getString(2)+" - "+resultado.getString(3));
                 
@@ -159,13 +159,13 @@ public class Asistencias extends javax.swing.JFrame {
                         
         }
         
-    }//GEN-LAST:event_asignaturasActionPerformed
+    }//GEN-LAST:event_selectAsignaturasActionPerformed
 
-    private void fechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechasActionPerformed
+    private void selectFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectFechasActionPerformed
 
-            tabla(fechas.getSelectedItem()); 
+        tabla(selectFechas.getSelectedItem()); 
             
-    }//GEN-LAST:event_fechasActionPerformed
+    }//GEN-LAST:event_selectFechasActionPerformed
 
     public static void main(String args[]) {
 
@@ -184,7 +184,7 @@ public class Asistencias extends javax.swing.JFrame {
     public void tabla (Object fecha){
         
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        DefaultTableModel modelo2 = (DefaultTableModel) tabla_ina.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) tablaIna.getModel();
 
         modelo.setRowCount(0); // Limpiar tabla asistencias
         modelo2.setRowCount(0); // Limpiar tabla inasistencias
@@ -195,7 +195,7 @@ public class Asistencias extends javax.swing.JFrame {
             ResultSet resultado;
             String consulta;
 
-            consulta = "SELECT usuarios.apellido,asistencias.fecha FROM usuarios,asistencias WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+id_asignatura+") AND (DATE(asistencias.fecha)='"+fecha+"'))";
+            consulta = "SELECT usuarios.apellido,asistencias.fecha FROM usuarios,asistencias WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+idAsignatura+") AND (DATE(asistencias.fecha)='"+fecha+"'))";
 
             try {
                 
@@ -218,19 +218,19 @@ public class Asistencias extends javax.swing.JFrame {
 
                 }
 
-                consulta = "SELECT usuarios.apellido FROM usuarios WHERE NOT EXISTS (SELECT * FROM asistencias WHERE (usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+id_asignatura+") AND (DATE(asistencias.fecha)='"+fecha+"')) AND FIND_IN_SET("+id_asignatura+",usuarios.id_asignatura_a)";
+                consulta = "SELECT usuarios.apellido FROM usuarios WHERE NOT EXISTS (SELECT * FROM asistencias WHERE (usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+idAsignatura+") AND (DATE(asistencias.fecha)='"+fecha+"')) AND FIND_IN_SET("+idAsignatura+",usuarios.id_asignatura_a)";
                 resultado = sentencia.executeQuery(consulta);
 
                 // Bucle para cada resultado en la consulta
                 while (resultado.next())
                 {
                     
-                   // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+                    // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
 
-                      fila[0] = resultado.getObject(1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
-                      fila[1] = "-";
-                   // Se añade al modelo la fila completa.
-                   modelo2.addRow(fila);
+                    fila[0] = resultado.getObject(1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
+                    fila[1] = "-";
+                    // Se añade al modelo la fila completa.
+                    modelo2.addRow(fila);
 
                 }
                 
@@ -260,7 +260,7 @@ public class Asistencias extends javax.swing.JFrame {
 
             while(resultado.next()){
                 
-                asignaturas.addItem(resultado.getString(1));
+                selectAsignaturas.addItem(resultado.getString(1));
                 
             }
             
@@ -279,9 +279,9 @@ public class Asistencias extends javax.swing.JFrame {
         ResultSet resultado;
         String consulta;
         
-        fechas.removeAllItems(); // Limpiar combobox de fechas
+        selectFechas.removeAllItems(); // Limpiar combobox de fechas
         
-        consulta = "SELECT DATE_FORMAT(fecha,'%Y-%m-%d') AS 'date' FROM asistencias WHERE id_asignatura_a='"+id_asignatura+"' GROUP BY date ORDER BY fecha DESC";
+        consulta = "SELECT DATE_FORMAT(fecha,'%Y-%m-%d') AS 'date' FROM asistencias WHERE id_asignatura_a='"+idAsignatura+"' GROUP BY date ORDER BY fecha DESC";
         
         try {
             
@@ -290,7 +290,7 @@ public class Asistencias extends javax.swing.JFrame {
 
             while(resultado.next()){
                 
-               fechas.addItem(resultado.getString(1));
+               selectFechas.addItem(resultado.getString(1));
                
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -303,13 +303,13 @@ public class Asistencias extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollAsistencias;
     private javax.swing.JScrollPane ScrollInasistencias;
-    private javax.swing.JComboBox<String> asignaturas;
-    private javax.swing.JComboBox<String> fechas;
     private javax.swing.JLabel hora;
     private javax.swing.JLabel label_tablaAsistencias;
     private javax.swing.JLabel label_tablaInasistencias;
+    private javax.swing.JComboBox<String> selectAsignaturas;
+    private javax.swing.JComboBox<String> selectFechas;
     private javax.swing.JTable tabla;
-    private javax.swing.JTable tabla_ina;
+    private javax.swing.JTable tablaIna;
     // End of variables declaration//GEN-END:variables
 
 }

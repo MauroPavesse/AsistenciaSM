@@ -23,8 +23,7 @@ import javax.swing.JOptionPane;
 
 public class LectorQR extends javax.swing.JFrame implements Runnable{
 
-        public static Boolean estado = false;
-        public static int id_aula = 0;
+        private static int idAula = 0;
 	private Thread hilo = new Thread(this);
 	private Webcam webcam = null;
 	private WebcamPanel panel = null;
@@ -42,10 +41,10 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
     private void initComponents() {
 
         panelQR = new javax.swing.JPanel();
-        btn_iniciar = new javax.swing.JButton();
-        Texto_QR = new javax.swing.JTextField();
+        btnIniciar = new javax.swing.JButton();
+        textoQR = new javax.swing.JTextField();
         codig_qr = new javax.swing.JLabel();
-        btn_config = new javax.swing.JButton();
+        btnConfig = new javax.swing.JButton();
         label_cabecera = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -66,21 +65,21 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
             .addGap(0, 344, Short.MAX_VALUE)
         );
 
-        btn_iniciar.setText("Iniciar");
-        btn_iniciar.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciar.setText("Iniciar");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_iniciarActionPerformed(evt);
+                btnIniciarActionPerformed(evt);
             }
         });
 
-        Texto_QR.setEnabled(false);
+        textoQR.setEnabled(false);
 
         codig_qr.setText("Mensaje");
 
-        btn_config.setText("Configuracion");
-        btn_config.addActionListener(new java.awt.event.ActionListener() {
+        btnConfig.setText("Configuracion");
+        btnConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_configActionPerformed(evt);
+                btnConfigActionPerformed(evt);
             }
         });
 
@@ -103,11 +102,11 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
                                     .addGap(6, 6, 6)
                                     .addComponent(codig_qr)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(textoQR, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btn_iniciar)
+                                    .addComponent(btnIniciar)
                                     .addGap(316, 316, 316)
-                                    .addComponent(btn_config)))
+                                    .addComponent(btnConfig)))
                             .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(label_cabecera, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,21 +121,21 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
                 .addComponent(panelQR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Texto_QR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoQR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codig_qr))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_iniciar)
-                    .addComponent(btn_config))
+                    .addComponent(btnIniciar)
+                    .addComponent(btnConfig))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarActionPerformed
-        
-        if (this.estado != false){ // Condicional para saber si se ha configurado el aula, en ese caso se inicia la webcam 
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+
+        if (idAula != 0){ // Condicional para saber si se ha configurado el aula, en ese caso se inicia la webcam 
             
             Dimension size = WebcamResolution.QVGA.getSize();     
             webcam = Webcam.getWebcams().get(0);
@@ -158,21 +157,21 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
             );    
             hilo.start();
-            btn_iniciar.setEnabled(false);
+            btnIniciar.setEnabled(false);
         }
         else{
             
-            JOptionPane.showMessageDialog(rootPane, "Debe configurar un aula para continuar!");
+            JOptionPane.showMessageDialog(null, "Debe configurar un aula para continuar!");
             
         }
         				
-    }//GEN-LAST:event_btn_iniciarActionPerformed
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
-    private void btn_configActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_configActionPerformed
+    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
        
         new Aula().setVisible(true);
         
-    }//GEN-LAST:event_btn_configActionPerformed
+    }//GEN-LAST:event_btnConfigActionPerformed
     
     public static void main(String args[]) {
 
@@ -185,12 +184,12 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Texto_QR;
-    private javax.swing.JButton btn_config;
-    private javax.swing.JButton btn_iniciar;
+    private javax.swing.JButton btnConfig;
+    private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel codig_qr;
     private javax.swing.JLabel label_cabecera;
     private javax.swing.JPanel panelQR;
+    private javax.swing.JTextField textoQR;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -241,7 +240,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
             }
             else{
                            
-                Texto_QR.setText("Esperando..");
+                textoQR.setText("Esperando..");
                         
             }
 	
@@ -275,7 +274,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 
                 if (id_asignatura_a != null || id_asignatura_p != null){
 
-                    consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_a+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
+                    consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+idAula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_a+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
                     resultado = sentencia.executeQuery(consulta);
 
                     if (resultado.next()){ // Es un alumno
@@ -288,21 +287,21 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 
                         if (resultado.next()){
                                 
-                            Texto_QR.setText("Asistencia ya existente para el usuario "+apellido); 
+                            textoQR.setText("Asistencia ya existente para el usuario "+apellido); 
                                 
                         }
                         else{
                                 
                             consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
                             sentencia.executeUpdate(consulta);
-                            Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
+                            textoQR.setText("Asistencia cargada para el usuario "+apellido); 
                                 
                         }
 
                     }
                     else{
                             
-                        consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+id_aula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_p+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
+                        consulta = "SELECT id_asignatura FROM asignaturas WHERE ((id_aula='"+idAula+"') AND (FIND_IN_SET(id_asignatura,'"+id_asignatura_p+"')) AND (FIND_IN_SET("+dia+",dias)) AND ('"+hora+"' BETWEEN hora_inicio AND hora_fin))";
                         resultado = sentencia.executeQuery(consulta);
 
                         if (resultado.next()){ // Es un profesor
@@ -315,21 +314,21 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 
                             if (resultado.next()){ 
                                     
-                                Texto_QR.setText("Asistencia ya existente para el usuario "+apellido);
+                                textoQR.setText("Asistencia ya existente para el usuario "+apellido);
                                     
                             }
                             else{
                                     
                                 consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
                                 sentencia.executeUpdate(consulta);
-                                Texto_QR.setText("Asistencia cargada para el usuario "+apellido); 
+                                textoQR.setText("Asistencia cargada para el usuario "+apellido); 
                                     
                             }
 
                         }
                         else{
                                 
-                            Texto_QR.setText("No se encontro una materia en este horario para el usuario "+apellido); 
+                            textoQR.setText("No se encontro una materia en este horario para el usuario "+apellido); 
                                 
                         }
                             
@@ -343,7 +342,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 
                     if (resultado.next()){   
                             
-                        Texto_QR.setText("Asistencia ya existente para el usuario "+apellido);
+                        textoQR.setText("Asistencia ya existente para el usuario "+apellido);
                             
                     }
                     else
@@ -351,7 +350,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
                             
                         consulta = "INSERT INTO asistencias VALUES (null,'"+id_usuario+"',"+id_asignatura_a+","+id_asignatura_p+",'"+dateTime+"')";
                         sentencia.executeUpdate(consulta);
-                        Texto_QR.setText("Asistencia cargada para el usuario "+apellido);
+                        textoQR.setText("Asistencia cargada para el usuario "+apellido);
                             
                     }
                         
@@ -361,7 +360,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
             else
             {
                     
-                Texto_QR.setText("Usuario no encontrado");
+                textoQR.setText("Usuario no encontrado");
                     
             }
 
@@ -376,6 +375,10 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
     public void close(){
         webcam.close();
         hilo.stop();
+    }
+    
+    public static void check(int id){
+        idAula = id;
     }
     
 }

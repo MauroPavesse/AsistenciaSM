@@ -5,17 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 public class NuevoUsuario extends javax.swing.JFrame {
     
     private String asignaturasA = "";
     private String asignaturasP = "";
+    private ArrayList<Integer> listUsuarios = new ArrayList<Integer>();
 
     public NuevoUsuario() {
         
         initComponents();
         cargarAsignaturas();
+        cargarUsuarios();
         this.setResizable(false); // Deshabilitar maximizacion del jframe
         this.setLocationRelativeTo(null); // Centrar jframe
         
@@ -39,6 +43,9 @@ public class NuevoUsuario extends javax.swing.JFrame {
         id_asignaturaP = new javax.swing.JComboBox<>();
         btnCargarAsignaturaP = new javax.swing.JButton();
         label_nuevo = new javax.swing.JLabel();
+        selectUsuarios = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo usuario");
@@ -94,6 +101,15 @@ public class NuevoUsuario extends javax.swing.JFrame {
 
         label_nuevo.setText("Nuevo usuario");
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Eliminar usuario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +117,7 @@ public class NuevoUsuario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGuardar)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label_nombre)
@@ -113,10 +129,13 @@ public class NuevoUsuario extends javax.swing.JFrame {
                             .addComponent(usuDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(usuNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(selectUsuarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCargarAsignaturaP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCargarAsignaturaA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(id_asignaturaP, javax.swing.GroupLayout.Alignment.TRAILING, 0, 184, Short.MAX_VALUE)
-                        .addComponent(id_asignaturaA, javax.swing.GroupLayout.Alignment.TRAILING, 0, 184, Short.MAX_VALUE)))
+                        .addComponent(id_asignaturaA, javax.swing.GroupLayout.Alignment.TRAILING, 0, 184, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -162,7 +181,13 @@ public class NuevoUsuario extends javax.swing.JFrame {
                 .addComponent(btnCargarAsignaturaP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEliminar)
+                .addContainerGap())
         );
 
         pack();
@@ -235,6 +260,43 @@ public class NuevoUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCargarAsignaturaPActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        int resp = JOptionPane.showConfirmDialog(null, "Todo lo relacionado con este usuario sera eliminado, desea continuar?", "Confirmar eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);            
+        
+        if (resp == 0){
+            
+            Statement sentencia;
+            String consulta;
+
+            consulta = "DELETE FROM asistencias WHERE id_usuario='"+listUsuarios.get(selectUsuarios.getSelectedIndex())+"'";
+
+            try {
+
+                sentencia = Conexion.obtener().createStatement();
+                sentencia.executeUpdate(consulta);
+
+                consulta = "DELETE FROM usuarios WHERE id_usuario='"+listUsuarios.get(selectUsuarios.getSelectedIndex())+"'";
+                sentencia.executeUpdate(consulta);
+
+                listUsuarios.remove(selectUsuarios.getSelectedIndex());
+                selectUsuarios.removeItemAt(selectUsuarios.getSelectedIndex());
+
+                JOptionPane.showMessageDialog(null, "Eliminado con exito");
+
+                if (selectUsuarios.getItemCount() <= 0){
+                    btnEliminar.setEnabled(false);
+                }
+
+            } catch (ClassNotFoundException | SQLException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -275,19 +337,59 @@ public class NuevoUsuario extends javax.swing.JFrame {
         }
         
     }   
+    
+    // Metodo para cargar usuarios en el combo box
+    public void cargarUsuarios(){
+        
+        Statement sentencia;
+        ResultSet resultado;
+        String consulta;
+        
+        consulta = "SELECT id_usuario,dni FROM usuarios ORDER BY id_usuario ASC";
+        
+        try {
+            
+            sentencia = Conexion.obtener().createStatement();
+            resultado = sentencia.executeQuery(consulta);
+            
+            if(resultado.isBeforeFirst())
+            {
+                while(resultado.next()){
+
+                    selectUsuarios.addItem(resultado.getString(2));
+                    listUsuarios.add(resultado.getInt(1));
+
+
+                }
+            }
+            else
+            {
+                btnEliminar.setEnabled(false);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+                            
+            e.printStackTrace();
+                        
+        }
+        
+    }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarAsignaturaA;
     private javax.swing.JButton btnCargarAsignaturaP;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> id_asignaturaA;
     private javax.swing.JComboBox<String> id_asignaturaP;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_apellido;
     private javax.swing.JLabel label_asigAlumno;
     private javax.swing.JLabel label_asigProfesor;
     private javax.swing.JLabel label_dni;
     private javax.swing.JLabel label_nombre;
     private javax.swing.JLabel label_nuevo;
+    private javax.swing.JComboBox<String> selectUsuarios;
     private javax.swing.JTextField usuApellido;
     private javax.swing.JTextField usuDNI;
     private javax.swing.JTextField usuNombre;

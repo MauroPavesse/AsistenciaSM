@@ -3,9 +3,13 @@ package webcamqr;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.util.ArrayList;
         
 public class Aula extends javax.swing.JFrame {
 
+    private ArrayList<Integer> listAulas = new ArrayList<Integer>();
+    
     public Aula() {
         
         initComponents(); 
@@ -19,25 +23,25 @@ public class Aula extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        id_aula = new javax.swing.JComboBox<>();
+        selectAulas = new javax.swing.JComboBox<>();
         label_aulas = new javax.swing.JLabel();
-        btn_aceptar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Aulas");
 
-        id_aula.addActionListener(new java.awt.event.ActionListener() {
+        selectAulas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                id_aulaActionPerformed(evt);
+                selectAulasActionPerformed(evt);
             }
         });
 
         label_aulas.setText("Aulas");
 
-        btn_aceptar.setText("Aceptar");
-        btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_aceptarActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
 
@@ -48,11 +52,15 @@ public class Aula extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_aceptar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(label_aulas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAceptar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(label_aulas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(selectAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -60,47 +68,25 @@ public class Aula extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(label_aulas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(id_aula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(selectAulas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_aceptar)
+                .addComponent(btnAceptar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void id_aulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_aulaActionPerformed
+    private void selectAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAulasActionPerformed
 
-    }//GEN-LAST:event_id_aulaActionPerformed
+    }//GEN-LAST:event_selectAulasActionPerformed
 
-    private void btn_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aceptarActionPerformed
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
-        Statement sentencia;
-        ResultSet resultado;
-        String consulta;
+        LectorQR.check(listAulas.get(selectAulas.getSelectedIndex()));
+        this.dispose();
         
-        consulta = "SELECT id_aula FROM aulas WHERE nombre='"+id_aula.getSelectedItem()+"'";
-        
-        try {
-            
-            sentencia = Conexion.obtener().createStatement();
-            resultado = sentencia.executeQuery(consulta);
-
-            if (resultado.next()){
-                
-                LectorQR.estado = true;
-                LectorQR.id_aula = resultado.getInt(1);
-                this.dispose();
-                
-            }
-        
-        } catch (ClassNotFoundException | SQLException e) {
-                            
-            e.printStackTrace();
-                        
-        }
-        
-    }//GEN-LAST:event_btn_aceptarActionPerformed
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     public static void main(String args[]) {
 
@@ -127,11 +113,19 @@ public class Aula extends javax.swing.JFrame {
             
             sentencia = Conexion.obtener().createStatement();
             resultado = sentencia.executeQuery(consulta);
+            
+            if(resultado.isBeforeFirst())
+            {
+                while(resultado.next()){
 
-            while(resultado.next()){
-                
-                id_aula.addItem(resultado.getString(2));
-                
+                    selectAulas.addItem(resultado.getString(2));
+                    listAulas.add(resultado.getInt(1));
+
+                }
+            }
+            else
+            {
+                btnAceptar.setEnabled(false);
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -143,9 +137,9 @@ public class Aula extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_aceptar;
-    private javax.swing.JComboBox<String> id_aula;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel label_aulas;
+    private javax.swing.JComboBox<String> selectAulas;
     // End of variables declaration//GEN-END:variables
 
 }

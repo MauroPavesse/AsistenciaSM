@@ -6,15 +6,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
+
 import javax.swing.JOptionPane;
+
 
 public class NuevaAsignatura extends javax.swing.JFrame {
     
+    private ArrayList<Integer> listAsignaturas = new ArrayList<Integer>();
+    private ArrayList<Integer> listAulas = new ArrayList<Integer>();
+
     public NuevaAsignatura() {
         
         initComponents();
         cargarAulas();
+        cargarAsignaturas();
         this.setResizable(false); // Deshabilitar maximizacion del jframe
         this.setLocationRelativeTo(null); // Centrar jframe
         
@@ -31,7 +38,7 @@ public class NuevaAsignatura extends javax.swing.JFrame {
         horaIni = new javax.swing.JTextField();
         horaFin = new javax.swing.JTextField();
         nomAsig = new javax.swing.JTextField();
-        btn_guardar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         label_aula = new javax.swing.JLabel();
         aulaSelect = new javax.swing.JComboBox<>();
         lunes = new javax.swing.JCheckBox();
@@ -41,6 +48,9 @@ public class NuevaAsignatura extends javax.swing.JFrame {
         viernes = new javax.swing.JCheckBox();
         sabado = new javax.swing.JCheckBox();
         label_cargar = new javax.swing.JLabel();
+        selectAsignaturas = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva asignatura");
@@ -71,10 +81,10 @@ public class NuevaAsignatura extends javax.swing.JFrame {
             }
         });
 
-        btn_guardar.setText("Guardar");
-        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_guardarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -130,6 +140,15 @@ public class NuevaAsignatura extends javax.swing.JFrame {
 
         label_cargar.setText("Nueva asignatura");
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Eliminar asignatura");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,13 +190,13 @@ public class NuevaAsignatura extends javax.swing.JFrame {
                             .addComponent(label_horaFin))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(horaIni, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(horaFin))))
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(horaIni)
+                            .addComponent(horaFin)
+                            .addComponent(selectAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
-                .addComponent(btn_guardar)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,9 +230,15 @@ public class NuevaAsignatura extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_horaFin)
                     .addComponent(horaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(btn_guardar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,13 +256,13 @@ public class NuevaAsignatura extends javax.swing.JFrame {
 
     }//GEN-LAST:event_nomAsigActionPerformed
 
-    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
         try {
             
             PreparedStatement pps = Conexion.obtener().prepareStatement("INSERT INTO asignaturas (id_aula,nombre,dias,hora_inicio,hora_fin) VALUES (?,?,?,?,?)");
             String item;
-            item = String.valueOf(aulaSelect.getSelectedIndex()+1);
+            item = String.valueOf(listAulas.get(aulaSelect.getSelectedIndex()));
             pps.setString(1, item);
             pps.setString(2, nomAsig.getText());
             pps.setString(3, verificarDias());
@@ -256,7 +281,7 @@ public class NuevaAsignatura extends javax.swing.JFrame {
         }
         
         this.dispose();
-    }//GEN-LAST:event_btn_guardarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private String verificarDias(){
         
@@ -308,6 +333,32 @@ public class NuevaAsignatura extends javax.swing.JFrame {
 
     }//GEN-LAST:event_aulaSelectActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+        Statement sentencia;
+        String consulta;
+ 
+        consulta = "DELETE FROM asignaturas WHERE id_asignatura='"+listAsignaturas.get(selectAsignaturas.getSelectedIndex())+"'";
+        
+        try {
+            
+            sentencia = Conexion.obtener().createStatement();
+            sentencia.executeUpdate(consulta);
+            listAsignaturas.remove(selectAsignaturas.getSelectedIndex());
+            selectAsignaturas.removeItemAt(selectAsignaturas.getSelectedIndex());
+            JOptionPane.showMessageDialog(null, "Eliminado con exito");
+            
+            if (selectAsignaturas.getItemCount() <= 0){
+                btnEliminar.setEnabled(false);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+                            
+            e.printStackTrace();
+                        
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -333,11 +384,57 @@ public class NuevaAsignatura extends javax.swing.JFrame {
             
             sentencia = Conexion.obtener().createStatement();
             resultado = sentencia.executeQuery(consulta);
-
-            while(resultado.next()){
+            
+            if(resultado.isBeforeFirst())
+            {
+            
+                while(resultado.next()){
 
                 aulaSelect.addItem(resultado.getString(2));
+                listAulas.add(resultado.getInt(1));
 
+                }
+                
+            }
+            else
+            {
+                btnGuardar.setEnabled(false);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+                            
+            e.printStackTrace();
+                        
+        }
+        
+    }
+    
+    // Metodo para cargar asignaturas en el combo box
+    public void cargarAsignaturas(){
+        
+        Statement sentencia;
+        ResultSet resultado;
+        String consulta;
+        
+        consulta = "SELECT id_asignatura,nombre FROM asignaturas ORDER BY id_asignatura ASC";
+        
+        try {
+            
+            sentencia = Conexion.obtener().createStatement();
+            resultado = sentencia.executeQuery(consulta);
+            
+            if(resultado.isBeforeFirst())
+            {
+                while(resultado.next()){
+
+                    selectAsignaturas.addItem(resultado.getString(2));
+                    listAsignaturas.add(resultado.getInt(1));
+
+
+                }
+            }
+            else
+            {
+                btnEliminar.setEnabled(false);
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -346,13 +443,15 @@ public class NuevaAsignatura extends javax.swing.JFrame {
                         
         }
         
-    }
+    }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aulaSelect;
-    private javax.swing.JButton btn_guardar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JTextField horaFin;
     private javax.swing.JTextField horaIni;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JCheckBox jueves;
     private javax.swing.JLabel label_aula;
     private javax.swing.JLabel label_cargar;
@@ -365,6 +464,7 @@ public class NuevaAsignatura extends javax.swing.JFrame {
     private javax.swing.JCheckBox miercoles;
     private javax.swing.JTextField nomAsig;
     private javax.swing.JCheckBox sabado;
+    private javax.swing.JComboBox<String> selectAsignaturas;
     private javax.swing.JCheckBox viernes;
     // End of variables declaration//GEN-END:variables
 
