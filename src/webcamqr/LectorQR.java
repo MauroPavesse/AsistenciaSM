@@ -248,6 +248,7 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 	
     }
    
+    // Metodo para verificar las condiciones necesarias para el presente
     public void verificarPresente(Result result){
         
         String dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()); // Obtener fecha y hora actual
@@ -372,11 +373,13 @@ public class LectorQR extends javax.swing.JFrame implements Runnable{
 
     }
     
+    // Metodo para cerrar camara web y para parar el hilo
     public void close(){
         webcam.close();
         hilo.stop();
     }
     
+    // Metodo para checkear si se selecciono algun aula, recibiendo el id de la misma
     public static void check(int id){
         idAula = id;
     }

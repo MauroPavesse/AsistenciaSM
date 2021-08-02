@@ -24,51 +24,51 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="label_nuevo" min="-2" pref="100" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnEliminar" min="-2" pref="184" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="label_nombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_dni" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_apellido" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="usuApellido" min="-2" pref="184" max="-2" attributes="0"/>
-                          <Component id="usuDNI" min="-2" pref="184" max="-2" attributes="0"/>
-                          <Component id="usuNombre" min="-2" pref="184" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="label_nombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="label_dni" min="-2" max="-2" attributes="0"/>
+                                  <Component id="label_apellido" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="usuApellido" min="-2" pref="184" max="-2" attributes="0"/>
+                                  <Component id="usuDNI" min="-2" pref="184" max="-2" attributes="0"/>
+                                  <Component id="usuNombre" min="-2" pref="184" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnEliminar" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnModificar" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnGuardar" alignment="1" max="32767" attributes="0"/>
+                              <Component id="selectUsuarios" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnCargarAsignaturaP" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnCargarAsignaturaA" alignment="1" max="32767" attributes="0"/>
+                              <Component id="id_asignaturaP" alignment="1" pref="184" max="32767" attributes="0"/>
+                              <Component id="id_asignaturaA" alignment="1" pref="184" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnGuardar" alignment="1" max="32767" attributes="0"/>
-                      <Component id="selectUsuarios" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btnCargarAsignaturaP" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btnCargarAsignaturaA" alignment="1" max="32767" attributes="0"/>
-                      <Component id="id_asignaturaP" alignment="1" pref="184" max="32767" attributes="0"/>
-                      <Component id="id_asignaturaA" alignment="1" pref="184" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="labelAsigProfesor" min="-2" pref="165" max="-2" attributes="0"/>
+                          <Component id="labelAsigAlumno" min="-2" pref="165" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="60" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="label_asigAlumno" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="label_asigProfesor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="label_nuevo" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -93,24 +93,26 @@
                   <Component id="usuDNI" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="label_asigAlumno" min="-2" max="-2" attributes="0"/>
+              <Component id="labelAsigAlumno" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Component id="id_asignaturaA" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCargarAsignaturaA" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="label_asigProfesor" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="labelAsigProfesor" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="id_asignaturaP" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCargarAsignaturaP" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="selectUsuarios" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="selectUsuarios" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -134,13 +136,22 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="usuNombre">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="usuApellido">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="usuDNI">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usuDNIActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
@@ -149,6 +160,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="id_asignaturaA">
       <Properties>
@@ -171,12 +185,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargarAsignaturaAActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_asigAlumno">
+    <Component class="javax.swing.JLabel" name="labelAsigAlumno">
       <Properties>
         <Property name="text" type="java.lang.String" value="Asignatura como alumno:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_asigProfesor">
+    <Component class="javax.swing.JLabel" name="labelAsigProfesor">
       <Properties>
         <Property name="text" type="java.lang.String" value="Asignatura como profesor:"/>
       </Properties>
@@ -229,6 +243,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar usuario"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnModificar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

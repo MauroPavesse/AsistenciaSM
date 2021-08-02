@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class NuevaAula extends javax.swing.JFrame {
     
     private ArrayList<Integer> listAulas = new ArrayList<Integer>();
+    private static int idAula;
     
     public NuevaAula() {
         
@@ -32,6 +32,7 @@ public class NuevaAula extends javax.swing.JFrame {
         selectAulas = new javax.swing.JComboBox<>();
         btnEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva aula");
@@ -66,28 +67,38 @@ public class NuevaAula extends javax.swing.JFrame {
 
         jLabel1.setText("Eliminar aula:");
 
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(label_nombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(nombreAula, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(selectAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
-                        .addGap(36, 36, 36)))
+                        .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(btnModificar)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,7 +118,9 @@ public class NuevaAula extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,17 +132,42 @@ public class NuevaAula extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-        try {
+        Statement sentencia;
+        ResultSet resultado;
+        String consulta;
+        
+        if (btnGuardar.getText().equals("Guardar")){
             
-            PreparedStatement pps = Conexion.obtener().prepareStatement("INSERT INTO aulas (nombre) VALUES (?)");
-            pps.setString(1, nombreAula.getText());
-            pps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Datos guardados");
-            
-        } catch (Exception e) {
-            
-            System.err.println("Error: "+e);
-            
+            try {
+
+                PreparedStatement pps = Conexion.obtener().prepareStatement("INSERT INTO aulas (nombre) VALUES (?)");
+                pps.setString(1, nombreAula.getText());
+                pps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+
+            } catch (Exception e) {
+
+                System.err.println("Error: "+e);
+
+            }
+
+        }
+        else
+        {
+            try {
+                
+                consulta = "UPDATE aulas SET nombre='"+nombreAula.getText()+"' WHERE id_aula='"+idAula+"'";
+                
+                sentencia = Conexion.obtener().createStatement();
+                sentencia.executeUpdate(consulta);
+                
+                JOptionPane.showMessageDialog(null, "Modificado con exito");
+
+            } catch (Exception e) {
+
+                System.err.println("Error: "+e);
+
+            }
         }
         
         this.dispose();
@@ -149,7 +187,7 @@ public class NuevaAula extends javax.swing.JFrame {
             Statement sentencia;
             String consulta;
 
-            consulta = "DELETE FROM asistencias WHERE (id_asignatura_a=(SELECT id_asignatura FROM asignaturas WHERE id_aula='"+listAulas.get(selectAulas.getSelectedIndex())+"')) OR (id_asignatura_p=(SELECT id_asignatura FROM asignaturas WHERE id_aula='"+listAulas.get(selectAulas.getSelectedIndex())+"'))"; 
+            consulta = "DELETE FROM asistencias WHERE (id_asignatura_a IN (SELECT id_asignatura FROM asignaturas WHERE id_aula='"+listAulas.get(selectAulas.getSelectedIndex())+"')) OR (id_asignatura_p IN (SELECT id_asignatura FROM asignaturas WHERE id_aula='"+listAulas.get(selectAulas.getSelectedIndex())+"'))"; 
 
             try {
 
@@ -179,6 +217,12 @@ public class NuevaAula extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        Modificar vm = new Modificar();
+        vm.setVisible(true);
+        vm.form(2);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -205,19 +249,18 @@ public class NuevaAula extends javax.swing.JFrame {
             sentencia = Conexion.obtener().createStatement();
             resultado = sentencia.executeQuery(consulta);
             
-            if(resultado.isBeforeFirst())
+            if(resultado.isBeforeFirst()) // Si la consulta trae algo
             {
                 while(resultado.next()){
 
                     selectAulas.addItem(resultado.getString(2));
                     listAulas.add(resultado.getInt(1));
 
-
                 }
             }
             else
             {
-                btnEliminar.setEnabled(false);
+                btnEliminar.setEnabled(false); // Deshabilitar boton
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -227,13 +270,24 @@ public class NuevaAula extends javax.swing.JFrame {
         }
         
     }   
+    
+    // Metodo para recibir la respuesta de Modificar.java
+    public static void resp(int id, String nombre){
+        
+        idAula = id;
+        nombreAula.setText(nombre); // Rellenar el input
+        btnGuardar.setLabel("Modificar"); // Cambiar nombre del boton
+        btnModificar.hide(); // Ocultar boton
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
+    private static javax.swing.JButton btnGuardar;
+    private static javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_nombre;
-    private javax.swing.JTextField nombreAula;
+    private static javax.swing.JTextField nombreAula;
     private javax.swing.JComboBox<String> selectAulas;
     // End of variables declaration//GEN-END:variables
 

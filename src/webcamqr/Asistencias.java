@@ -30,8 +30,8 @@ public class Asistencias extends javax.swing.JFrame {
         selectFechas = new javax.swing.JComboBox<>();
         ScrollAsistencias = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        label_tablaAsistencias = new javax.swing.JLabel();
-        label_tablaInasistencias = new javax.swing.JLabel();
+        labelAsistencias = new javax.swing.JLabel();
+        labelInasistencias = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Asistencias");
@@ -71,9 +71,9 @@ public class Asistencias extends javax.swing.JFrame {
         ));
         ScrollAsistencias.setViewportView(tabla);
 
-        label_tablaAsistencias.setText("Asistencias");
+        labelAsistencias.setText("Asistencias");
 
-        label_tablaInasistencias.setText("Inasistencias");
+        labelInasistencias.setText("Inasistencias");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,9 +91,9 @@ public class Asistencias extends javax.swing.JFrame {
                                 .addGap(44, 44, 44))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(label_tablaInasistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                                    .addComponent(label_tablaAsistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(152, 152, 152))))
+                                    .addComponent(labelAsistencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelInasistencias, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                                .addGap(108, 108, 108))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ScrollInasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(100, 100, 100))
@@ -116,9 +116,9 @@ public class Asistencias extends javax.swing.JFrame {
                     .addComponent(selectAsignaturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_tablaAsistencias)
+                .addComponent(labelAsistencias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addComponent(label_tablaInasistencias)
+                .addComponent(labelInasistencias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScrollInasistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -188,13 +188,17 @@ public class Asistencias extends javax.swing.JFrame {
 
         modelo.setRowCount(0); // Limpiar tabla asistencias
         modelo2.setRowCount(0); // Limpiar tabla inasistencias
-
+        labelAsistencias.setText("Asistencias 0");
+        labelInasistencias.setText("Inasistencias 0");
+        
         if (fecha != null){
 
             Statement sentencia;
             ResultSet resultado;
             String consulta;
-
+            
+            //Tabla asistencias 
+            
             consulta = "SELECT usuarios.apellido,asistencias.fecha FROM usuarios,asistencias WHERE ((usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+idAsignatura+") AND (DATE(asistencias.fecha)='"+fecha+"'))";
 
             try {
@@ -204,35 +208,39 @@ public class Asistencias extends javax.swing.JFrame {
                 
                 sentencia = Conexion.obtener().createStatement();
                 resultado = sentencia.executeQuery(consulta);
-
+                
+                int cont = 0;
                 // Bucle para cada resultado en la consulta
                 while (resultado.next())
-                {
-                    
+                {  
                    // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
                    for (int i=0;i<2;i++)
-                      fila[i] = resultado.getObject(i+1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
+                      fila[i] = resultado.getString(i+1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
 
                    // Se añade al modelo la fila completa.
                    modelo.addRow(fila);
+                   cont++;
 
                 }
-
+                labelAsistencias.setText("Asistencias "+cont);
+                
+                // Tabla inasistencias
+                
                 consulta = "SELECT usuarios.apellido FROM usuarios WHERE NOT EXISTS (SELECT * FROM asistencias WHERE (usuarios.id_usuario=asistencias.id_usuario) AND (asistencias.id_asignatura_a="+idAsignatura+") AND (DATE(asistencias.fecha)='"+fecha+"')) AND FIND_IN_SET("+idAsignatura+",usuarios.id_asignatura_a)";
                 resultado = sentencia.executeQuery(consulta);
-
+                
+                cont = 0;
                 // Bucle para cada resultado en la consulta
                 while (resultado.next())
                 {
-                    
                     // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
-
-                    fila[0] = resultado.getObject(1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
+                    fila[0] = resultado.getString(1); // El primer indice en resultado es el 1, no el cero, por eso se suma 1.
                     fila[1] = "-";
                     // Se añade al modelo la fila completa.
                     modelo2.addRow(fila);
 
                 }
+                labelInasistencias.setText("Inasistencias "+cont);
                 
             }catch (ClassNotFoundException | SQLException e) {
 
@@ -304,8 +312,8 @@ public class Asistencias extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollAsistencias;
     private javax.swing.JScrollPane ScrollInasistencias;
     private javax.swing.JLabel hora;
-    private javax.swing.JLabel label_tablaAsistencias;
-    private javax.swing.JLabel label_tablaInasistencias;
+    private javax.swing.JLabel labelAsistencias;
+    private javax.swing.JLabel labelInasistencias;
     private javax.swing.JComboBox<String> selectAsignaturas;
     private javax.swing.JComboBox<String> selectFechas;
     private javax.swing.JTable tabla;

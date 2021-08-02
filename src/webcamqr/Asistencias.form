@@ -35,12 +35,12 @@
                               <Component id="selectFechas" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="label_tablaInasistencias" alignment="0" pref="77" max="32767" attributes="0"/>
-                                  <Component id="label_tablaAsistencias" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelAsistencias" max="32767" attributes="0"/>
+                                  <Component id="labelInasistencias" pref="121" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -74,9 +74,9 @@
                   <Component id="selectFechas" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="label_tablaAsistencias" min="-2" max="-2" attributes="0"/>
+              <Component id="labelAsistencias" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="115" max="32767" attributes="0"/>
-              <Component id="label_tablaInasistencias" min="-2" max="-2" attributes="0"/>
+              <Component id="labelInasistencias" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ScrollInasistencias" min="-2" pref="102" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -175,12 +175,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="label_tablaAsistencias">
+    <Component class="javax.swing.JLabel" name="labelAsistencias">
       <Properties>
         <Property name="text" type="java.lang.String" value="Asistencias"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_tablaInasistencias">
+    <Component class="javax.swing.JLabel" name="labelInasistencias">
       <Properties>
         <Property name="text" type="java.lang.String" value="Inasistencias"/>
       </Properties>
