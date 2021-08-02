@@ -218,9 +218,19 @@ public class NuevaAula extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        Modificar vm = new Modificar();
-        vm.setVisible(true);
-        vm.form(2);
+        
+        if (btnModificar.getText().equals("Modificar")){
+        
+            Modificar vm = new Modificar();
+            vm.setVisible(true);
+            vm.form(2);
+            
+        }
+        else
+        {
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
@@ -277,7 +287,7 @@ public class NuevaAula extends javax.swing.JFrame {
         idAula = id;
         nombreAula.setText(nombre); // Rellenar el input
         btnGuardar.setLabel("Modificar"); // Cambiar nombre del boton
-        btnModificar.hide(); // Ocultar boton
+        btnModificar.setLabel("Cancelar"); 
         
     }
 

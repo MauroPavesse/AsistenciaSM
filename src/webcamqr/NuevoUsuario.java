@@ -352,9 +352,19 @@ public class NuevoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        Modificar vm = new Modificar();
-        vm.setVisible(true);
-        vm.form(3);
+       
+        if (btnModificar.getText().equals("Modificar")){
+        
+            Modificar vm = new Modificar();
+            vm.setVisible(true);
+            vm.form(3);
+            
+        }
+        else
+        {
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
@@ -444,7 +454,7 @@ public class NuevoUsuario extends javax.swing.JFrame {
         usuNombre.setText(nombre);
         usuApellido.setText(apellido);
         btnGuardar.setLabel("Modificar");
-        btnModificar.hide();
+        btnModificar.setLabel("Cancelar");
         
     }
 
